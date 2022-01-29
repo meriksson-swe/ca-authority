@@ -1,0 +1,27 @@
+[ req ]
+default_bits            = 2048
+distinguished_name      = req_distinguished_name
+req_extensions          = req_ext
+prompt                  = no
+ 
+[ req_distinguished_name ]
+C      = SE
+ST     = Stockholm
+L      = Solna
+O      = ExampleCompany
+OU     = ExampleUnit 
+CN     = example.com
+ 
+[ req_ext ]
+subjectAltName          = @alt_names
+subjectKeyIdentifier    = hash
+ 
+[alt_names]
+DNS.1   = example.com
+DNS.2   = www.example.com
+email   = email@example.com
+
+[ req ]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
