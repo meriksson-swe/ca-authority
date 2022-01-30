@@ -1,0 +1,18 @@
+[ req ]
+default_bits            = 2048
+distinguished_name      = req_distinguished_name
+ 
+[ req_distinguished_name ]
+C          = Country Name (2 letter code)
+C_default  = SE
+ST         = State/Province
+ST_default = Stockholm
+L          = Location
+L_default  = Solna
+O          = Organization
+O_default  = UserDep
+OU         = Organization Unit 
+OU_default = ExampleUnit 
+CN         = Common Name
+CN_default = example.com
+ 
