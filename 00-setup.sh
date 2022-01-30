@@ -11,9 +11,10 @@ function print_ca_config() {
 dir=$1
 fil=$2
 policy=$3
-
+cert_name='ca'
 if [ "loose" == "$policy" ]; then
   extra='req_extensions      = req_ext'
+  cert_name='intermediate'
 fi
 
 cat <<EOF > $dir/$fil
@@ -23,7 +24,7 @@ default_ca = CA_default
 
 [ CA_default ]
 # Directory and file locations.
-dir               = $dir
+dir               = ${dir}
 certs             = \$dir/certs
 crl_dir           = \$dir/crl
 new_certs_dir     = \$dir/newcerts
@@ -32,8 +33,8 @@ serial            = \$dir/serial
 RANDFILE          = \$dir/private/.rand
 
 # The root key and root certificate.
-private_key       = \$dir/private/ca.key
-certificate       = \$dir/certs/ca.crt
+private_key       = \$dir/private/${cert_name}.key
+certificate       = \$dir/certs/${cert_name}.crt
 
 # For certificate revocation lists.
 crlnumber         = \$dir/crlnumber
@@ -76,7 +77,7 @@ emailAddress            = optional
 default_bits        = 2048
 distinguished_name  = req_distinguished_name
 string_mask         = utf8only
-$extra
+${extra}
 
 # SHA-1 is deprecated, so use SHA-2 instead.
 default_md          = sha256
