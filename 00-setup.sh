@@ -6,6 +6,8 @@ intermediate_dirs_needed='certs crl csr newcerts private'
 leaf='leaf'
 leaf_dirs_needed='certs csr newcerts private'
 files_needed='index.txt serial crlnumber'
+user='users'
+user_dirs_needed='certs csr private'
 
 function print_ca_config() {
 dir=$1
@@ -194,6 +196,31 @@ req_extensions     = req_ext
 EOF
 }
 
+function print_user_config() {
+dir=$1
+fil=$2
+
+cat <<EOF > $dir/$fil
+[ req ]
+default_bits            = 2048
+distinguished_name      = req_distinguished_name
+ 
+[ req_distinguished_name ]
+C          = Country Name (2 letter code)
+C_default  = SE
+ST         = State/Province
+ST_default = Stockholm
+L          = Location
+L_default  = Solna
+O          = Organization
+O_default  = UserDep
+OU         = Organization Unit 
+OU_default = ExampleUnit 
+CN         = Common Name
+CN_default = User
+ 
+EOF
+}
 
 # Create root folders
 for dir in `echo $root_dirs_needed`
@@ -253,3 +280,17 @@ if [ ! -d $leaf ]; then
   cd ..
 fi
 print_leaf_config "$(pwd)/$leaf" www.example.com.cnf
+
+# Create user folders
+if [ ! -d $user ]; then
+  mkdir $user
+  cd $user
+  for dir in `echo $user_dirs_needed`
+  do
+    if [ ! -d $dir ]; then
+      mkdir $dir
+    fi
+  done
+  cd ..
+fi
+print_user_config "$(pwd)/$user" openssl.cnf
