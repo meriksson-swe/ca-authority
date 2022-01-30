@@ -5,7 +5,7 @@ inter='intermediate'
 intermediate_dirs_needed='certs crl csr newcerts private'
 leaf='leaf'
 leaf_dirs_needed='certs csr newcerts private'
-files_needed='index.txt serial'
+files_needed='index.txt serial crlnumber'
 
 function print_ca_config() {
 dir=$1
@@ -207,8 +207,8 @@ for file in `echo $files_needed`
 do 
   if [ ! -f $file ]; then
     touch $file
-    if [ "serial" == "$file" ]; then
-      echo "01" > serial
+    if [ "index.txt" != $file ]; then
+      echo "01" > $file
     fi
   fi
 done
@@ -230,12 +230,11 @@ if [ ! -d $inter ]; then
   do
     if [ ! -f $file ]; then
       touch $file
-      if [ "serial" == "$file" ]; then
-        echo "1000" > serial
+      if [ "index.txt" != $file ]; then
+        echo "1000" > $file
       fi
     fi
   done
-  echo "1000" > crlnumber
   cd ..  
 fi
 # Write config
