@@ -1,0 +1,11 @@
+certs
+newcerts
+crl
+intermediate
+private
+leaf
+users
+crlnumber*
+index.txt*
+openssl.cnf
+serial*

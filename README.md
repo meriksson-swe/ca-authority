@@ -4,13 +4,13 @@ Scripts to make signing you own certificates easy
 I have set ut a collection of scripts and configuration to show how it works when you want to become your own ca authority. I have done this in educational purpose for myself and for you.
 
 ## The setup
-There are some scripts used for setting up or cleaning the project. The first script `00-setup.sh` is already run in this git repo so there is no need of running it again. The script `clean.sh` can be used to wipe the whole folder structure and all settings-files. This can be used if you played around and want to reset everything. Just run the script followed by `00-setup.sh` and you are good to go again.  
+There are some scripts used for setting up or cleaning the project. The first script `00-setup.sh` will set up the whole configuration with all folders and configuration needed. The script `clean.sh` can be used to wipe the whole folder structure and all settings-files. This can be used if you played around and want to reset everything. Just run the script followed by `00-setup.sh` and you are good to go again.  
 
 The other scripts are used in the process of creating and signing certificates. They can be divided into four groups:
 * 01-02 are used to create your root ca
 * 03-05 are used to create a intermediate ca
 * 06-08 are used to create a leaf (node) certificate used for server validation.
-* 09-12 are used to create a user certificate user for client access to mTLS systems
+* 09-12 are used to create a user certificate user for client access to mutual tls (mTLS) systems
 ## How it works
 You first of all need a strong key used to sign your own root ca certificate. With this certificate you then sign other certficates. When you then get a certificate signing request (csr), you take a stand on if you trust the information in the signing request and if so, you use your root ca to set a validation mark on their new certificate.  
 First let's have a look at this structure.
